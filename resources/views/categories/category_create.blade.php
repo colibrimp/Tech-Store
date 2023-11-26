@@ -10,7 +10,6 @@
     <div class="row">
         <div class="col-lg-6 mx-auto">
 
-            {{-- для вывода ошибок --}}
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>

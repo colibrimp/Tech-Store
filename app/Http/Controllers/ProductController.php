@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
+use App\Models\Image;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -13,8 +18,10 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $image = Image::all();
+        $categories = Category::all();
         $products = Product::all();
-        return view('products.product_index', compact('products'));
+        return view('products.product_index', compact('products', 'categories', 'image'));
     }
 
     /**
@@ -22,7 +29,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $images = Image::all();
+        $categories = Category::all();
+        $product = Product::all();
+        return view('products.product_create', compact('product', 'categories', 'images'));
     }
 
     /**
@@ -30,23 +40,65 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        $product = new Product();
+
+        $product->title = $request->title;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->currency = $request->currency;
+        $product->category_id = $request->category_id;
+        $product->status = $request->status;
+
+
+        Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'product_id' => 'nullable',
+            'status'  => 'nullable',
+        ]);
+
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $extention = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extention;
+            $file->move('uploads/products/', $filename);
+            $product->images->title = $filename;
+        }
+
+        $product->save();
+
+            Image::create(
+                [
+                    'title' => $filename,
+                    'status' => true,
+                    'product_id' => $product->id
+
+                ]
+            );
+
+
+        return  redirect('products');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $category = Category::all();
+        $product = Product::findOrFail($id);
+        return view('products.product_show', compact('product', 'category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $categories = Category::all();
+        $product = Product::findOrFail($id);
+        return view('products.product_edit', compact('product', 'categories'));
     }
 
     /**
@@ -54,14 +106,52 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+
+        $product->title = $request->title;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->currency = $request->currency;
+        $product->category_id = $request->category_id;
+        $product->status = $request->status;
+
+
+        Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'product_id' => 'nullable',
+            'status'  => 'nullable',
+        ]);
+
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $extention = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extention;
+            $file->move('uploads/products/', $filename);
+            $product->images->title = $filename;
+        }
+
+        $product->save();
+
+        Image::create(
+            [
+                'title' => $filename,
+                'status' => true,
+                'product_id' => $product->id
+
+            ]
+        );
+
+        return  redirect('products');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return  redirect('products');
     }
 }

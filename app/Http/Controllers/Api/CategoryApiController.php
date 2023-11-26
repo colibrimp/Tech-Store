@@ -8,16 +8,22 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use Illuminate\Http\JsonResponse;
+
 
 
 
 class CategoryApiController extends BaseResponseApiController
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except([ 'show']);;
+    }
+
     public function index()
     {
         $categories = Category::all();
+
         return $this->sendResponse(CategoryResource::collection($categories), 'Categories retrieved successfully.');
 
     }
@@ -43,6 +49,7 @@ class CategoryApiController extends BaseResponseApiController
     {
         $category = Category::findOrFail($id);
 
+    
         if (is_null($category) || $category->status == MyConstant::FAIL_STATUS) {
 
             return $this->sendError(new CategoryResource($category), 'Category not found, status false!');
@@ -71,8 +78,9 @@ class CategoryApiController extends BaseResponseApiController
 
 
     public function destroy(Category $category)
-    {
+{
         $category->delete();
+
         return  $this->sendResponse([], 'Category deleted successfully.');
     }
 

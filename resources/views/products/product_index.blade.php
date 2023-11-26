@@ -13,6 +13,7 @@
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Title</th>
+            <th scope="col">Image</th>
             <th scope="col">Description</th>
             <th scope="col">Price</th>
             <th scope="col">Currency</th>
@@ -22,12 +23,32 @@
           </tr>
         </thead>
         <tbody>
+     
 
             @foreach ($products as $product)
-
+                @php
+               
+                  $image = '';
+                  if (count($product->images) > 0){
+                       $image = $product->images[0]['title'];
+                  }else{
+                      $image = 'no_image.png';
+                 }
+                @endphp
          <tr>
             <th scope="row">{{ $product->id }}</th>
             <td>{{ $product->title }}</td>
+            <td>
+                @if($product)
+                <a href="{{route('products.show', $product->id)}}">
+                  <img src="{{ asset('uploads/products/' . $image) }}" width="280px"
+                height="245px" alt="Image">
+              </a>
+                @else
+                    <span>No Image Found!</span>
+                @endif
+            </td>
+
             <td>{{ $product->description }}</td>
             <td>{{ $product->price }}</td>
             <td>{{ $product->currency }}</td>

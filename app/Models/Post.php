@@ -5,24 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Post extends Model
 {
     use HasFactory;
-
-    protected $table = 'images';
+    protected $table = 'posts';
 
     protected $fillable = [
         'id',
         'title',
+        'description',
         'status',
-        'product_id',
-        'created_at',
-        'updated_at'
+        'user_id',
+
     ];
 
-    public function product()
+    //feedback one to many
+    public function user()
     {
-        $this->belongsTo(Product::class, 'product_id', 'id');
+        return $this->belongsTo(User::class);
     }
-
 }

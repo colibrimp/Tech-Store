@@ -32,19 +32,7 @@
 
     </ul>
 
-{{--    <ul class="nav justify-content-end">--}}
-{{--        <li class="nav-item">--}}
-{{--            --}}{{-- {{ Auth::user()->name }} --}}
-{{--            <a class="nav-link active" aria-current="page" href=""></a>--}}
-{{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link active" aria-current="page" href="{{ url('login') }}">| Login</a>--}}
-{{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" href="{{ url('register') }}">| Register</a>--}}
-{{--        </li>--}}
 
-{{--    </ul>--}}
 </div>
 </div>
 </nav>

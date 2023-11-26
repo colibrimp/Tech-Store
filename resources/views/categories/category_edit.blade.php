@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-lg-6 mx-auto">
 
-            {{-- для вывода ошибок --}}
+        
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -21,9 +21,9 @@
                 </div><br />
             @endif
 
-            <form method="post" action="{{ route('category.store') }}" class="mt-5">
-                @csrf
-
+            <form method="POST" action="{{ route('category.update', $category->id) }}" class="mt-5">
+                {{ csrf_field() }}
+                @method('PATCH')
                 <div class="form-group">
                     <label for="post-title">ID</label>
                     <input type="text" name="id" class="form-control" id="id" value="{{ old('id', $category->id) }}" >
@@ -44,7 +44,7 @@
                     </div>
 
 
-                    <button type="submit" class="btn btn-success mt-3">
+                    <button type="submit"id="submit"  class="btn btn-success mt-3">
                         Add Category
                     </button>
 
