@@ -23,7 +23,7 @@ class ProductApiController extends BaseResponseApiController
     public function index()
     {
         $products = Product::all();
-        return $this->sendResponse(ProductResource::collection($products), 'Categories retrieved successfully.');
+        return $this->sendResponse(ProductResource::collection($products), 'Product retrieved successfully.');
 
     }
 
@@ -68,7 +68,7 @@ class ProductApiController extends BaseResponseApiController
 
             ]
         );
-        return $this->sendResponse(new ProductResource($product), 'Category created successfully.');
+        return $this->sendResponse(new ProductResource($product), 'Product created successfully.');
     }
 
     /**
