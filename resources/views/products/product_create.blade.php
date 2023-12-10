@@ -10,16 +10,7 @@
     <div class="row">
         <div class="col-lg-6 mx-auto">
 
-           
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div><br />
-            @endif
+       
 
             <form method="post" action="{{ route('products.store') }}" class="mt-5"  enctype="multipart/form-data">
                 {{ csrf_field() }}

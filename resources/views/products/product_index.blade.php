@@ -17,17 +17,17 @@
             <th scope="col">Description</th>
             <th scope="col">Price</th>
             <th scope="col">Currency</th>
-            <th scope="col">Category Id</th>
+            <th scope="col">Category_Id</th>
             <th scope="col">Status</th>
             <th scope="col">Active</th>
           </tr>
         </thead>
         <tbody>
-     
+  
 
             @foreach ($products as $product)
                 @php
-               
+        
                   $image = '';
                   if (count($product->images) > 0){
                        $image = $product->images[0]['title'];
@@ -54,26 +54,23 @@
             <td>{{ $product->currency }}</td>
             <td>{{ $product->category->title }}</td>
             <td>{{ $product->status }}</td>
-            <td class="">
-              <ul class="nav justify-content-end">
+            <td class="d-flex">
+               
+                  <form action="{{ route('basket.store') }}" method="Post">
+                    {{ csrf_field() }}
+                    <button type="submit"><i class="fa-solid fa-basket-shopping"></i></button>
+                </form>
 
-                <li class="nav-item">
                   <a class="nav-link" href="{{ route('products.show', $product->id) }} "><i class="fa-solid fa-eye"></i></a>
-                </li>
 
-                <li class="nav-item">
                   <a class="nav-link" href="{{ route('products.edit', $product->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-
-                </li>
-
 
                   <form action="{{ route('products.destroy', $product->id) }}" method="POST">
                     {{ csrf_field() }}
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                    <button type="submit" class="btn "><i class="fa-solid fa-trash-can"></i></button>
                 </form>
 
-              </ul>
             </td>
           </tr>
 

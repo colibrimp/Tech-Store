@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Currency;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -18,10 +19,11 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $currencies = Currency::all();
         $image = Image::all();
         $categories = Category::all();
         $products = Product::all();
-        return view('products.product_index', compact('products', 'categories', 'image'));
+        return view('products.product_index', compact('products', 'categories', 'image', 'currencies'));
     }
 
     /**
@@ -141,7 +143,10 @@ class ProductController extends Controller
             ]
         );
 
+
         return  redirect('products');
+
+
 
     }
 

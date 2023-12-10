@@ -22,10 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::apiResources(['category' => CategoryApiController::class]);
-//
-//Route::apiResources(['products' => ProductApiController::class]);
-
 
 Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']);
@@ -38,47 +34,7 @@ Route::middleware('auth:api')->group(function () {
 })->middleware(['auth:api', 'scope:manager-category']);
 
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-
-//Route::apiResource('projects', ProjectController::class)->middleware('auth:api');
 
 
 
 
-
-
-
-
-//
-//Route::get('category', function () {
-//    Route::apiResources(['category' => CategoryApiController::class]);
-//})->middleware(['auth:api', 'scope:manager-category']);
-
-//Route::middleware(['auth:api', 'scope:create-posts'])->post('posts', function () {
-//    Route::apiResources(['posts' => PostApiController::class]);
-//});
-
-//Route::get('/manager', function () {
-//    Route::apiResources(['posts' => PostApiController::class]);
-//})->middleware('auth:api', 'scope:manager');
-
-// идем в App\Http\Kernel
-// protected $middlewareAliases = [
-//'scopes' => CheckScopes::class,
-//'scope' => CheckForAnyScope::class,
-// Category
-
-//можно все кроме create', 'edit
-//Route::apiResources('categories', 'CategoryController')
-//    ->except(['create', 'edit']);
-//Route::resource('categories.products', 'Category\CategoryProductController')
-//    ->only(['index']);
-//Route::resource('categories.sellers', 'Category\CategorySellerController')
-//    ->only(['index']);
-//Route::resource('categories.transactions', 'Category\CategoryTransactionController')
-//    ->only(['index']);
-//Route::resource('categories.buyers', 'Category\CategoryBuyerController')
-//    ->only(['index']);

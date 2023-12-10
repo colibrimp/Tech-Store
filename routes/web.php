@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ImageController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Auth\AuthLoginController;
+use App\Http\Controllers\Auth\AuthRegisterController;
+use App\Http\Controllers\Auth\AuthLogoutController;
+use App\Http\Controllers\BasketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +24,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::resource('basket', BasketController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('products', ProductController::class);
+Route::resource('currency', CurrencyController::class);
+
+Route::resource('/login', AuthLoginController::class);
+Route::resource('/register', AuthRegisterController::class);
+// Route::resource('/logout', AuthLogoutController::class);
+
 
