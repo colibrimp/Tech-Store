@@ -35,48 +35,10 @@ class AuthRegisterController extends Controller
 
     public function store(Request $request)
     {
-//         Validator::make($request->all(), [
-//             'name' => 'required',
-//             'email' => 'required|email',
-//             '>email_verified_at' => 'required|email_verified_at',
-//             'password' => 'required',
-            
-//         ]);
-        
-        
-//         $user = new User();
-//         $user->name = $request->name;
-//         $user->email = $request->email;
-//         $user->email_verified_at = $request->email_verified_at;
-//         $user->password = bcrypt($request->password);
-// //        dd($user);
-//         $user->save();
-
-//        if ($user->email === $user->email_verified_at) {
-//            //continue
-//        } else {
-//            return sendError('Emails does not match');
-//        }
 
 
-// Validator::make($request->all(), [
-//     'name' => 'required',
-//     'email' => 'required|email',
-//     'email_verified_at' => 'required|same:email',
-//     'password' => 'required',
-    
-// ]);
-
-
-
-// $input = $request->all();
-
-// $input['password'] = bcrypt($input['password']);
-
-// $user = User::create($input);
-
-//         return redirect('register')->with('status','Register added successfully!');
-//     }
+        return redirect('register')->with('status','Register added successfully!');
+    }
 }
 
 
